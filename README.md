@@ -1,30 +1,92 @@
-# Simple Notes App for TWS Community
-This is a simple notes app built with React and Django.
+# Notes App with CI/CD Pipeline
 
-## Requirements
-1. Python 3.9
-2. Node.js
-3. React
+A full-stack notes application built with React and Django, featuring automated deployment through Jenkins CI/CD pipeline.
 
-## Installation
-1. Clone the repository
-```
-git clone https://github.com/LondheShubham153/django-notes-app.git
+## 🚀 Features
+
+- **Frontend**: React-based user interface
+- **Backend**: Django REST framework
+- **Containerization**: Docker support
+- **CI/CD**: Automated Jenkins pipeline for continuous integration and deployment
+- **Reverse Proxy**: Nginx configuration for production deployment
+
+## 📋 Requirements
+
+- Python 3.9
+- Node.js
+- Docker
+- Jenkins (for CI/CD pipeline)
+- Nginx (for reverse proxy)
+
+## 🛠️ Installation
+
+### Clone the Repository
+```bash
+git clone https://github.com/AC12arpitChauhan/CI-CD-Pipeline.git
+cd django-notes-app-dc
 ```
 
-2. Build the app
-```
+### Build the Docker Image
+```bash
 docker build -t notes-app .
 ```
 
-3. Run the app
-```
+### Run the Application
+```bash
 docker run -d -p 8000:8000 notes-app:latest
 ```
 
-## Nginx
+The application will be available at `http://localhost:8000`
 
-Install Nginx reverse proxy to make this application available
+## 🔄 CI/CD Pipeline
 
-`sudo apt-get update`
-`sudo apt install nginx`
+This project includes a Jenkins pipeline configuration (`Jenkinsfile`) that automates:
+
+- Code checkout from repository
+- Automated testing
+- Docker image building
+- Container deployment
+- Health checks
+
+### Setting Up Jenkins Pipeline
+
+1. Create a new Pipeline job in Jenkins
+2. Configure the repository URL
+3. Point to the `Jenkinsfile` in the repository
+4. Run the pipeline to deploy automatically
+
+## 🌐 Nginx Reverse Proxy Setup
+
+To make the application available through Nginx:
+
+```bash
+# Update system packages
+sudo apt-get update
+
+# Install Nginx
+sudo apt install nginx
+
+# Configure Nginx (edit the default configuration)
+sudo nano /etc/nginx/sites-available/default
+
+# Restart Nginx
+sudo systemctl restart nginx
+```
+
+### Sample Nginx Configuration
+```nginx
+server {
+    listen 80;
+    server_name your_domain.com;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
